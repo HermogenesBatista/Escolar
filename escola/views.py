@@ -27,7 +27,6 @@ def test_redirect(request):
 
     return redirect(formularios)
 
-
 def formulario_aluno(request):
     dados = {'name': 'Hermogenes '}
     return render(request, 'forms_aluno.html', dados)
