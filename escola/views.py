@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from escola.documentos import Declaracao
 
@@ -22,6 +22,15 @@ def formularios(request):
 
     dados = {'name': 'Hermogenes '}
     return render(request, 'forms.html', dados)
+
+def test_redirect(request):
+
+    return redirect(formularios)
+
+
+def formulario_aluno(request):
+    dados = {'name': 'Hermogenes '}
+    return render(request, 'forms_aluno.html', dados)
 
 def declaracao(request):
     response = HttpResponse(content_type='application/pdf')

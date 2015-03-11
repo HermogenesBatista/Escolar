@@ -79,3 +79,27 @@ class Entidade(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+
+class Aluno(models.Model):
+    nome = models.CharField(max_length=150)
+    pai = models.CharField(max_length=150)
+    mae = models.CharField(max_length=150)
+    #ano_ensino = models.ForeignKey(Turma)
+    cpf = models.CharField(max_length=12)
+    rg = models.CharField(max_length=25)
+    org_exp = models.CharField(max_length=10)
+    dt_nasc = models.DateField()
+    rua = models.CharField(max_length=150)
+    num_rua = models.CharField(max_length=10)
+    bairro_rua = models.CharField(max_length=30)
+    cidade = models.CharField(max_length=50)
+    estado = models.CharField(max_length=30)
+    tel_principal = models.CharField(max_length=16)
+    tel_alternativo = models.CharField(max_length=16)
+    situacao = models.BooleanField(default=True)
+    tipo_vida = models.ForeignKey(TipoVida)
+
+    def __str__(self):
+        return self.nome
