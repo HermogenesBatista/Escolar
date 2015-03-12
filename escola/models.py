@@ -17,7 +17,7 @@ class TipoVida(models.Model):
 
 
 class TipoEntidade(models.Model):
-    nome = models.CharField(max_length=30)
+    nome = models.CharField(max_length=100)
     situacao = models.BooleanField(default=True)
 
     def __str__(self):

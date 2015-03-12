@@ -17,5 +17,7 @@ urlpatterns = patterns('',
     url(r'^escola/declaracao', declaracao),
     url(r'^escola/test_redirect', test_redirect),
     url(r'^escola/form_aluno', formulario_aluno),
+    url(r'^escola/tipo_entidade/', busca_entidade),
     url(r'^escola/', index),
+
 )+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
