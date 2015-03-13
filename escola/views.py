@@ -1,9 +1,10 @@
 #from django.core.serializers import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+import json
 from escola.documentos import Declaracao
 from escola.models import TipoEntidade
-import json
+
 
 # Create your views here.
 def base(request):
