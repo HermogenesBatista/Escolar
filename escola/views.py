@@ -1,8 +1,9 @@
-from django.core.serializers import json
+#from django.core.serializers import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from escola.documentos import Declaracao
 from escola.models import TipoEntidade
+import json
 
 # Create your views here.
 def base(request):
@@ -34,12 +35,18 @@ def formulario_aluno(request):
     return render(request, 'forms_aluno.html', dados)
 
 def busca_entidade(request):
-    search_qs = TipoEntidade.objects.filter(name__startswith=request.REQUEST['search'])
-    results = []
-    for r in search_qs:
-        results.append(r.name)
-    resp = request.REQUEST['callback'] + '(' + json.dumps(results) + ');'
-    return HttpResponse(resp, content_type='application/json')
+
+    if 'term' in request.GET:
+        tags = TipoEntidade.objects.filter(
+            nome__contains=request.GET['term']
+        )[:10]
+
+        #print(tags[0].nome)
+        dados = json.dumps([tag.nome for tag in tags])
+
+        print(dados)
+        return HttpResponse(dados)
+    return HttpResponse()
 
 def declaracao(request):
     response = HttpResponse(content_type='application/pdf')
