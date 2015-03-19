@@ -4,6 +4,7 @@ from django.http import HttpResponse
 import json
 from escola.documentos import Declaracao
 from escola.models import TipoEntidade
+from escola.forms import FormTipoVida
 
 
 # Create your views here.
@@ -48,6 +49,40 @@ def busca_entidade(request):
         print(dados)
         return HttpResponse(dados)
     return HttpResponse()
+
+def test(request):
+    if request.method == "POST":
+        form = FormTipoVida(request.POST)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            situacao = form.cleaned_data['situacao']
+
+            if(situacao):
+                status = 'ativo'
+            else:
+                status = 'desativado'
+
+            dados = {
+                'nome': nome,
+                'situacao': status,
+                'title': 'Forms Test',
+                'form': form
+            }
+
+            return render(request, 'form_teste.html', dados)
+        else:
+            return redirect(index)
+    else:
+
+        form = FormTipoVida()
+
+    dados = {
+        'form': form,
+        'title': 'Hermogenes',
+        'title': 'Forms Test',
+    }
+
+    return render(request, 'form_teste.html', dados)
 
 def declaracao(request):
     response = HttpResponse(content_type='application/pdf')
