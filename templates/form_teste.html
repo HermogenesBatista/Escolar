@@ -25,24 +25,32 @@
                     </div>
                 </div>
                 <!-- /.row -->
-
-
-
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Line Graph Example with Tooltips</h3>
+                    <div class="col-lg-6">
+                        {% if form.errors %}
+                            <p style="color: red;">
+                                Corrija o{{ form.errors|pluralize }} erro{{ form.errors|pluralize }} abaixo.
+                            </p>
+                        {% endif %}
+
+                        {% if callback %}
+                            <p style="color: blue;">
+                               Criado com sucesso.
+                            </p>
+                        {% endif %}
+
+                        <form action="/escola/test_form/" method="post">{% csrf_token %}
+                          {% for field in form %}
+                            <div class="field">
+                              <label for="{{field.id}}">{{field.label_tag}}</label> {{field}} <div class="error">{{field.errors}}</div>
                             </div>
-                            <div class="panel-body">
-                                <div class="flot-chart">
-                                    <div class="flot-chart-content" id="flot-line-chart"></div>
-                                </div>
-                            </div>
-                        </div>
+                          {% endfor %}
+                          <p><input type="submit" value="Enviar mensagem"></p>
+                        </form>
+
                     </div>
                 </div>
-                <!-- /.row -->
+
 
                 <div class="row">
                     <div class="col-lg-4">

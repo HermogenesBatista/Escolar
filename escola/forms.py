@@ -6,5 +6,5 @@ __author__ = 'Administrador'
 
 class FormTipoVida(forms.Form):
     nome = forms.CharField(max_length=30)
-    situacao = forms.BooleanField()
+    situacao = forms.BooleanField(required=False)
 

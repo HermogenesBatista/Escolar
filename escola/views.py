@@ -57,7 +57,7 @@ def test(request):
             nome = form.cleaned_data['nome']
             situacao = form.cleaned_data['situacao']
 
-            if(situacao):
+            if situacao:
                 status = 'ativo'
             else:
                 status = 'desativado'
@@ -66,12 +66,12 @@ def test(request):
                 'nome': nome,
                 'situacao': status,
                 'title': 'Forms Test',
-                'form': form
+                'form': form,
+                'callback': True
             }
 
             return render(request, 'form_teste.html', dados)
-        else:
-            return redirect(index)
+
     else:
 
         form = FormTipoVida()
