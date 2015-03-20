@@ -4,7 +4,7 @@ from django.http import HttpResponse
 import json
 from escola.documentos import Declaracao
 from escola.models import TipoEntidade
-from escola.forms import FormTipoVida
+from escola.forms import FormTipoVida, FormResponsavel
 
 
 # Create your views here.
@@ -52,7 +52,7 @@ def busca_entidade(request):
 
 def test(request):
     if request.method == "POST":
-        form = FormTipoVida(request.POST)
+        form = FormResponsavel(request.POST)
         if form.is_valid():
             nome = form.cleaned_data['nome']
             situacao = form.cleaned_data['situacao']
@@ -74,7 +74,7 @@ def test(request):
 
     else:
 
-        form = FormTipoVida()
+        form = FormResponsavel()
 
     dados = {
         'form': form,
