@@ -26,8 +26,7 @@
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-lg-6">
-                        {% if form.errors %}
+                    {% if form.errors %}
                             <p style="color: red;">
                                 Corrija o{{ form.errors|pluralize }} erro{{ form.errors|pluralize }} abaixo.
                             </p>
@@ -35,20 +34,28 @@
 
                         {% if callback %}
                             <p style="color: blue;">
-                               Criado com sucesso.<em>{{ nome }}</em> {{ situacao }}
+                               Criado com sucesso.<em>{{ nome }}</em> {{ situacao }}.<br>Escolaridade: {{ escolaridade }}
                             </p>
                         {% endif %}
-
-                        <form action="/escola/test_form/" method="post">{% csrf_token %}
-                          {% for field in form %}
-                            <div class="field">
-                              <label for="{{field.id}}">{{field.label_tag}}</label> {{field}} <div class="error">{{field.errors}}</div>
+                    <form action="/escola/test_form/" method="post" role="form">{% csrf_token %}
+                        {% for field in form %}
+                            {% if forloop.count <= 10 %}
+                            <div class="col-lg-6">
+                                    <div class="form-group">
+                                      <label>{{field.label_tag}}</label> {{field}} <div class="error">{{field.errors}}</div>
+                                    </div>
                             </div>
-                          {% endfor %}
-                          <p><input type="submit" value="Enviar mensagem"></p>
-                        </form>
+                            {% else %}
+                            <div class="col-lg-6">
+                                    <div class="form-group">
+                                      <label>{{field.label_tag}}</label> {{field}} <div class="error">{{field.errors}}</div>
+                                    </div>
+                            </div>
+                            {% endif %}
 
-                    </div>
+                        {% endfor %}
+                        <p><input type="submit" value="Cadastrar"></p>
+                    </form>
                 </div>
 
 

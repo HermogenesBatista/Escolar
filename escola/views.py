@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
 from escola.documentos import Declaracao
-from escola.models import TipoEntidade
+from escola.models import TipoEntidade, Responsavel, Escolaridade
 from escola.forms import FormTipoVida, FormResponsavel
 
 
@@ -54,8 +54,10 @@ def test(request):
     if request.method == "POST":
         form = FormResponsavel(request.POST)
         if form.is_valid():
+            #print(len(form.label_tags))
             nome = form.cleaned_data['nome']
             situacao = form.cleaned_data['situacao']
+            escolaridade = Escolaridade.objects.get(id=int(form.cleaned_data['escolaridade']))
 
             if situacao:
                 status = 'ativo'
@@ -65,6 +67,7 @@ def test(request):
             dados = {
                 'nome': nome,
                 'situacao': status,
+                'escolaridade': escolaridade,
                 'title': 'Forms Test',
                 'form': form,
                 'callback': True
@@ -75,6 +78,9 @@ def test(request):
     else:
 
         form = FormResponsavel()
+
+        for tags in form:
+            tags.attr['class'] = 'form-control'
 
     dados = {
         'form': form,

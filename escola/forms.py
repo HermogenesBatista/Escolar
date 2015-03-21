@@ -11,21 +11,23 @@ class FormTipoVida(forms.Form):
 
 
 class FormResponsavel(forms.Form):
+
     nome = forms.CharField(max_length=150)
-    pai = forms.CharField(max_length=150)
-    mae = forms.CharField(max_length=150)
-    cpf = forms.CharField(max_length=12)
-    rg = forms.CharField(max_length=25)
-    org_exp = forms.CharField(max_length=10)
-    dt_nasc = forms.DateField()
-    rua = forms.CharField(max_length=150)
-    num_rua = forms.CharField(max_length=10)
-    bairro_rua = forms.CharField(max_length=30)
-    cidade = forms.CharField(max_length=50)
-    estado = forms.CharField(max_length=30)
-    tel_principal = forms.CharField(max_length=16)
-    tel_alternativo = forms.CharField(max_length=16)
-    situacao = forms.BooleanField()
+    pai = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    mae = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    cpf = forms.CharField(max_length=14, widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                       'pattern': '\d{3}[.]\d{3}[.]\d{3}[-]\d{2}'}))
+    rg = forms.CharField(max_length=25, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    org_expedidor = forms.CharField(max_length=10, widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                           'pattern': '\w{3,5}\/\w{2}'}))
+    data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control'}))
+    rua = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    numero = forms.CharField(max_length=10, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    bairro = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    cidade = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    estado = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    tel_principal = forms.CharField(max_length=16, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    tel_alternativo = forms.CharField(max_length=16, widget=forms.TextInput(attrs={'class': 'form-control'}))
     tipo_vida = forms.ChoiceField(set((c.id, c.nome) for c in TipoVida.objects.all()))
     escolaridade = forms.ChoiceField(set((x.id, x.nome) for x in Escolaridade.objects.all()))
 
