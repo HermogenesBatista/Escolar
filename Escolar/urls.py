@@ -18,7 +18,8 @@ urlpatterns = patterns('',
     url(r'^escola/test_redirect/', test_redirect),
     url(r'^escola/form_aluno/', formulario_aluno),
     url(r'^escola/tipo_entidade/', busca_entidade),
-    url(r'^escola/test_form/', test),
+    url(r'^escola/test_form/', render_form_auto),
+    url(r'^escola/form_model/', render_form_model),
     url(r'^escola/', index),
 
 )+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

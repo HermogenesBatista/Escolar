@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 from django import forms
+from localflavor.br.forms import BRCPFField
 from escola.models import *
 
 __author__ = 'Administrador'
@@ -12,11 +13,10 @@ class FormTipoVida(forms.Form):
 
 class FormResponsavel(forms.Form):
 
-    nome = forms.CharField(max_length=150)
+    nome = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
     pai = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
     mae = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    cpf = forms.CharField(max_length=14, widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                       'pattern': '\d{3}[.]\d{3}[.]\d{3}[-]\d{2}'}))
+    cpf = BRCPFField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     rg = forms.CharField(max_length=25, widget=forms.TextInput(attrs={'class': 'form-control'}))
     org_expedidor = forms.CharField(max_length=10, widget=forms.TextInput(attrs={'class': 'form-control',
                                                                            'pattern': '\w{3,5}\/\w{2}'}))

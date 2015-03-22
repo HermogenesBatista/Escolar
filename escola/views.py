@@ -50,7 +50,8 @@ def busca_entidade(request):
         return HttpResponse(dados)
     return HttpResponse()
 
-def test(request):
+
+def render_form_auto(request):
     if request.method == "POST":
         form = FormResponsavel(request.POST)
         if form.is_valid():
@@ -79,9 +80,6 @@ def test(request):
 
         form = FormResponsavel()
 
-        for tags in form:
-            tags.attr['class'] = 'form-control'
-
     dados = {
         'form': form,
         'title': 'Hermogenes',
@@ -89,6 +87,44 @@ def test(request):
     }
 
     return render(request, 'form_teste.html', dados)
+
+''
+def render_form_model(request):
+    if request.method == "POST":
+        form = FormResponsavel(request.POST)
+        if form.is_valid():
+            #print(len(form.label_tags))
+            nome = form.cleaned_data['nome']
+            situacao = form.cleaned_data['situacao']
+            escolaridade = Escolaridade.objects.get(id=int(form.cleaned_data['escolaridade']))
+
+            if situacao:
+                status = 'ativo'
+            else:
+                status = 'desativado'
+
+            dados = {
+                'nome': nome,
+                'situacao': status,
+                'escolaridade': escolaridade,
+                'title': 'Forms Test',
+                'form': form,
+                'callback': True
+            }
+
+            return render(request, 'form_teste.html', dados)
+
+    else:
+        form = FormResponsavel()
+
+    dados = {
+        'form': form,
+        'title': 'Hermogenes',''
+        'title': 'Forms Test',
+    }
+
+    return render(request, 'form_teste.html', dados)
+
 
 def declaracao(request):
     response = HttpResponse(content_type='application/pdf')
