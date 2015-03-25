@@ -21,5 +21,6 @@ urlpatterns = patterns('',
     url(r'^escola/test_form/', render_form_auto),
     url(r'^escola/form_model/', render_form_model),
     url(r'^escola/', index),
+    url(r'^media/(.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 
 )+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
