@@ -91,7 +91,7 @@ class Entidade(models.Model):
         return self.nome
 
 class Aluno(Pessoa):
-    escola = models.ForeignKey(Entidade)
+    escola = models.ForeignKey(Entidade, default=1)
     ano_ensino = models.ForeignKey(Turma)
 
     def __str__(self):
